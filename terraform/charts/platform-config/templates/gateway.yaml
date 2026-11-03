@@ -1,0 +1,97 @@
+{{- $ns := .Release.Namespace -}}
+# The ALB flavour of Gateway API, implemented by the AWS Load Balancer Controller.
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: {{ .Values.gateway.className }}
+spec:
+  controllerName: gateway.k8s.aws/alb
+---
+# ALB settings for the shared Gateway. The TLS certificate is the ACM wildcard
+# certificate Terraform requested and validated (*.domain + domain). It is set
+# explicitly as the listener's default certificate - the controller does not
+# support Gateway listener certificateRefs.
+apiVersion: gateway.k8s.aws/v1
+kind: LoadBalancerConfiguration
+metadata:
+  name: {{ .Values.gateway.name }}
+  namespace: {{ $ns }}
+spec:
+  scheme: internet-facing
+  defaultTargetGroupConfiguration:
+    name: {{ .Values.gateway.name }}-default-targets
+  listenerConfigurations:
+    - protocolPort: HTTPS:443
+      defaultCertificate: {{ required "certificateArn is required" .Values.certificateArn | quote }}
+  loadBalancerAttributes:
+    - key: idle_timeout.timeout_seconds
+      value: "60"
+    - key: routing.http.drop_invalid_header_fields.enabled
+      value: "true"
+---
+# Defaults for every target group behind the Gateway, including the ones created
+# for students' own HTTPRoutes: register pod IPs directly (works with plain
+# ClusterIP Services, no NodePort needed) and health-check "/".
+apiVersion: gateway.k8s.aws/v1
+kind: TargetGroupConfiguration
+metadata:
+  name: {{ .Values.gateway.name }}-default-targets
+  namespace: {{ $ns }}
+spec:
+  defaultConfiguration:
+    targetType: ip
+    healthCheckConfig:
+      healthCheckPath: /
+      healthCheckInterval: 10
+      healthCheckTimeout: 5
+      healthyThresholdCount: 2
+      unhealthyThresholdCount: 3
+    targetGroupAttributes:
+      - key: deregistration_delay.timeout_seconds
+        value: "30"
+---
+# One Gateway = one internet-facing ALB shared by every app in the cluster.
+# Routes from ANY namespace may attach, so students can expose their own apps.
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: {{ .Values.gateway.name }}
+  namespace: {{ $ns }}
+spec:
+  gatewayClassName: {{ .Values.gateway.className }}
+  infrastructure:
+    parametersRef:
+      group: gateway.k8s.aws
+      kind: LoadBalancerConfiguration
+      name: {{ .Values.gateway.name }}
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+---
+# Port 80 only redirects. App routes attach to the "https" listener.
+# No hostnames here, so external-dns creates no DNS record for this route.
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: http-to-https-redirect
+  namespace: {{ $ns }}
+spec:
+  parentRefs:
+    - name: {{ .Values.gateway.name }}
+      sectionName: http
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301

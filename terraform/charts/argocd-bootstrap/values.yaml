@@ -1,0 +1,11 @@
+# Supplied by Terraform (argocd.tf).
+repoURL: ""
+targetRevision: main
+rootPath: gitops/root
+# The only namespaces Argo CD may deploy the lab apps into.
+appNamespaces: []
+# Platform-owned namespaces managed through Argo CD (DB bootstrap, dashboards).
+platformNamespaces:
+  - db-bootstrap
+  - monitoring
+global: {}

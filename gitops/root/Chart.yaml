@@ -1,0 +1,5 @@
+apiVersion: v2
+name: lab-root
+description: App-of-apps for the Kubernetes platform lab - one Argo CD Application per lab app
+type: application
+version: 1.0.0

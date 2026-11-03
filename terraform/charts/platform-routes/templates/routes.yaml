@@ -1,0 +1,35 @@
+{{- range $name, $ui := dict "argocd" .Values.argocd "grafana" .Values.grafana }}
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ $name }}
+  namespace: {{ $ui.namespace }}
+spec:
+  parentRefs:
+    - name: {{ $.Values.gateway.name }}
+      namespace: {{ $.Values.gateway.namespace }}
+      sectionName: https
+  hostnames:
+    - {{ required (printf "%s.host is required" $name) $ui.host | quote }}
+  rules:
+    - backendRefs:
+        - name: {{ $ui.service }}
+          port: {{ $ui.port }}
+---
+# Health-check override for this UI's target group (the Gateway default
+# checks "/", which these UIs answer with a redirect).
+apiVersion: gateway.k8s.aws/v1
+kind: TargetGroupConfiguration
+metadata:
+  name: {{ $ui.service }}
+  namespace: {{ $ui.namespace }}
+spec:
+  targetReference:
+    kind: Service
+    name: {{ $ui.service }}
+  defaultConfiguration:
+    targetType: ip
+    healthCheckConfig:
+      healthCheckPath: {{ if eq $name "argocd" }}/healthz{{ else }}/api/health{{ end }}
+{{- end }}

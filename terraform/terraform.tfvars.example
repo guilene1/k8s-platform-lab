@@ -1,0 +1,65 @@
+# Copy to terraform.tfvars (gitignored) and edit:
+#   cp terraform.tfvars.example terraform.tfvars
+
+###############################################################################
+# Required
+###############################################################################
+
+# A domain whose Route 53 PUBLIC hosted zone already exists in your account.
+# Apps will be served at shop.<domain>, bank.<domain>, ..., argocd.<domain>,
+# grafana.<domain>. Terraform never creates or deletes the zone itself.
+domain_name = "lab.example.com"
+
+# Your public fork of this repo. Argo CD deploys the apps from it.
+gitops_repo_url = "https://github.com/your-github-user/k8s-platform-lab.git"
+
+###############################################################################
+# Optional (defaults shown)
+###############################################################################
+
+# Branch, tag or commit Argo CD syncs.
+# gitops_revision = "main"
+
+# AWS region for everything.
+# region = "us-east-1"
+
+# EKS cluster name and prefix for AWS resource names (3-20 chars).
+# project_name = "k8slab"
+
+# EKS version - keep it in EKS *standard* support.
+# kubernetes_version = "1.37"
+
+# VPC CIDR (3 public + 3 private subnets are carved out of it).
+# vpc_cidr = "10.20.0.0/16"
+
+# true = one NAT gateway (cheap). false = one per AZ (HA, ~2x NAT cost).
+# single_nat_gateway = true
+
+# Who may reach the public EKS API endpoint. e.g. ["203.0.113.10/32"]
+# endpoint_public_access_cidrs = ["0.0.0.0/0"]
+
+# Extra IAM principals that get cluster-admin (e.g. an instructor role).
+# cluster_admin_principal_arns = ["arn:aws:iam::111122223333:role/Instructor"]
+
+# Worker node CPU architecture: "arm64" (Graviton, default) or "x86_64".
+# App images are built for the same platform.
+# node_architecture = "arm64"
+
+# Override node instance types (must match node_architecture).
+# Default: ["m7g.xlarge"] for arm64, ["m7i.xlarge"] for x86_64.
+# node_instance_types = []
+
+# Node group size. Cluster Autoscaler scales between min and max.
+# node_min_size     = 3
+# node_desired_size = 3
+# node_max_size     = 6
+
+# RDS for PostgreSQL.
+# db_instance_class = "db.t4g.medium"
+# db_engine_version = "18"
+
+# Build + push the app images during apply (requires Docker running).
+# build_images = true
+
+# Extra tags on every AWS resource.
+# tags = { Owner = "your-name" }

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: gateway-api-crds
+description: Kubernetes Gateway API standard-channel CRDs (vendored from the upstream v1.6.3 release, unmodified)
+type: application
+version: 1.6.3
+appVersion: "v1.6.3"

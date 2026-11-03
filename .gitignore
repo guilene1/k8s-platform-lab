@@ -1,0 +1,47 @@
+# Terraform state and working files - never commit these
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+.terraform/
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Variable files hold your domain/account details (ship *.tfvars.example)
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+# Kubeconfigs and credentials
+kubeconfig
+kubeconfig*
+*.kubeconfig
+.kube/
+.env
+.env.*
+*.pem
+*.key
+
+# App build output and dependencies
+node_modules/
+dist/
+build/
+coverage/
+.npm/
+*.log
+
+# Rendered/scratch output
+.render/
+.helm-rendered/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

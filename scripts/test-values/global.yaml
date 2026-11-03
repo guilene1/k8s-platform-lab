@@ -1,0 +1,14 @@
+# Stand-in for the values Terraform injects through the root Application.
+# Used only by scripts/validate.sh to render charts offline.
+global:
+  domain: lab.example.com
+  region: us-east-1
+  imageRegistry: 111122223333.dkr.ecr.us-east-1.amazonaws.com/k8slab
+  imageTags: {}
+  secretPrefix: k8slab
+  secretStore: aws-secrets-manager
+  gateway:
+    name: lab-gateway
+    namespace: gateway
+  repoURL: https://github.com/example/k8s-platform-lab.git
+  targetRevision: main

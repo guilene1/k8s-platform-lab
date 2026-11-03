@@ -1,0 +1,34 @@
+# The app-of-apps. It renders gitops/root (a Helm chart in this repo) which
+# emits one child Application per lab app. The student-specific values
+# (domain, ECR registry, image tags...) are passed in here and handed down.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: {{ .Release.Namespace }}
+  finalizers:
+    # Deleting the root app cascades to the child apps and their resources.
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: lab-root
+  source:
+    repoURL: {{ .Values.repoURL | quote }}
+    targetRevision: {{ .Values.targetRevision | quote }}
+    path: {{ .Values.rootPath }}
+    helm:
+      valuesObject:
+        global:
+          {{- toYaml .Values.global | nindent 10 }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Release.Namespace }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 10
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 3m

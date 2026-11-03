@@ -1,0 +1,17 @@
+# Shared ReadWriteMany storage on Amazon EFS, usable from any namespace.
+# Each PVC gets its own EFS access point (dynamic provisioning); the access
+# point enforces a POSIX uid/gid, so non-root pods can always write.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: efs-sc
+provisioner: efs.csi.aws.com
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+parameters:
+  provisioningMode: efs-ap
+  fileSystemId: {{ required "efsFileSystemId is required" .Values.efsFileSystemId | quote }}
+  directoryPerms: "700"
+  gidRangeStart: "50000"
+  gidRangeEnd: "59999"
+  basePath: "/dynamic"

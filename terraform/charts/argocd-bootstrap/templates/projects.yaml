@@ -1,0 +1,42 @@
+# Two projects keep Argo CD on a short leash:
+#
+#  lab-root  - the root app may only create Argo CD Applications in "argocd".
+#  lab-apps  - child apps may only deploy into the 10 app namespaces plus the
+#              platform namespaces listed below. Anything a student creates in
+#              any other namespace is invisible to Argo CD: it is never
+#              adopted, diffed or pruned.
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: lab-root
+  namespace: {{ .Release.Namespace }}
+spec:
+  description: Root app-of-apps. Creates the lab's child Applications only.
+  sourceRepos:
+    - {{ required "repoURL is required" .Values.repoURL | quote }}
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: {{ .Release.Namespace }}
+  clusterResourceWhitelist: []
+  namespaceResourceWhitelist:
+    - group: argoproj.io
+      kind: Application
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: lab-apps
+  namespace: {{ .Release.Namespace }}
+spec:
+  description: The 10 lab applications and their platform helpers.
+  sourceRepos:
+    - {{ .Values.repoURL | quote }}
+  destinations:
+    {{- range concat .Values.appNamespaces .Values.platformNamespaces }}
+    - server: https://kubernetes.default.svc
+      namespace: {{ . }}
+    {{- end }}
+  # Only Namespaces at cluster scope (for CreateNamespace=true).
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace

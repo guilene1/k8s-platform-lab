@@ -1,0 +1,40 @@
+{{- range $name, $app := .Values.apps }}
+{{- if ne (toString $app.enabled) "false" }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $name }}
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ default "0" $app.syncWave | quote }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: lab-apps
+  source:
+    repoURL: {{ required "global.repoURL is required" $.Values.global.repoURL | quote }}
+    targetRevision: {{ $.Values.global.targetRevision | quote }}
+    path: {{ required (printf "apps.%s.path is required" $name) $app.path }}
+    helm:
+      valuesObject:
+        global:
+          {{- toYaml $.Values.global | nindent 10 }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ default $name $app.namespace }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    retry:
+      limit: 10
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 3m
+{{- end }}
+{{- end }}

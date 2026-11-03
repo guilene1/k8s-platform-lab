@@ -1,0 +1,10 @@
+# The apps Argo CD deploys. Each entry becomes an Application named after the
+# key, deploying the Helm chart at `path` into the namespace of the same name.
+#
+# `global` is injected by Terraform through the root Application (domain, ECR
+# registry, image tags, ...). Do not set it here.
+#
+# Phase 1: the platform is up, no apps yet.
+apps: {}
+
+global: {}

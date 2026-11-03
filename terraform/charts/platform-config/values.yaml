@@ -1,0 +1,17 @@
+# All values are supplied by Terraform (platform-config.tf).
+region: ""
+domain: ""
+certificateArn: ""
+efsFileSystemId: ""
+secretPrefix: ""
+
+gateway:
+  name: lab-gateway
+  className: aws-alb
+
+secretStore:
+  name: aws-secrets-manager
+
+grafana:
+  namespace: monitoring
+  adminSecretName: grafana-admin
