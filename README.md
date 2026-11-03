@@ -12,3 +12,4 @@ A production-style Amazon EKS platform built with one `terraform apply`: Gateway
 | `terraform/charts/` | Small local Helm charts Terraform installs (Gateway, StorageClass, Argo CD bootstrap…) |
 | `gitops/root/` | The Argo CD app-of-apps chart |
 | `scripts/validate.sh` | Renders every chart and validates it against Kubernetes 1.37 (strict) |
+# k8s-platform-lab
