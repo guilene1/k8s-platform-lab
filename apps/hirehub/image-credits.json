@@ -1,0 +1,74 @@
+[
+ {
+  "file": "apps/hirehub/web/public/images/hero.jpg",
+  "title": "Ornate office space (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Ornate_office_space_(Unsplash).jpg",
+  "author": "Crew crew",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/hirehub/web/public/images/companies/northwind-labs.jpg",
+  "title": "120 E 8th St, Los Angeles, United States (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:120_E_8th_St,_Los_Angeles,_United_States_(Unsplash).jpg",
+  "author": "Breather breather",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/hirehub/web/public/images/companies/brightside-health.jpg",
+  "title": "White office space (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:White_office_space_(Unsplash).jpg",
+  "author": "Breather breather",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/hirehub/web/public/images/companies/ledgerline.jpg",
+  "title": "Desks in an open office space (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Desks_in_an_open_office_space_(Unsplash).jpg",
+  "author": "Crew crew",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/hirehub/web/public/images/companies/forge-robotics.jpg",
+  "title": "Lone office worker (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Lone_office_worker_(Unsplash).jpg",
+  "author": "Jadon Barnes xjadonx",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/hirehub/web/public/images/companies/studio-meridian.jpg",
+  "title": "Office rest area (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Office_rest_area_(Unsplash).jpg",
+  "author": "Breather breather",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/hirehub/web/public/images/companies/parcel-and-pine.jpg",
+  "title": "Man at a laptop in an office (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Man_at_a_laptop_in_an_office_(Unsplash).jpg",
+  "author": "Bench Accounting benchaccounting",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/hirehub/web/public/images/companies/atlas-civic.jpg",
+  "title": "Desks and cubicles (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Desks_and_cubicles_(Unsplash).jpg",
+  "author": "Crew crew",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/hirehub/web/public/images/companies/quietdesk.jpg",
+  "title": "Clean minimalist office (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Clean_minimalist_office_(Unsplash).jpg",
+  "author": "Roman Bozhko romanbozhko",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ }
+]

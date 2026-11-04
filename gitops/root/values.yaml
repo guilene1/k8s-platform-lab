@@ -12,5 +12,11 @@ apps:
 
   shopline:
     path: gitops/apps/shopline
+  northbank:
+    path: gitops/apps/northbank
+  quickplate:
+    path: gitops/apps/quickplate
+  staywell:
+    path: gitops/apps/staywell
 
 global: {}

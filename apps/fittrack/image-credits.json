@@ -1,0 +1,58 @@
+[
+ {
+  "file": "apps/fittrack/web/public/images/hero.jpg",
+  "title": "Jenny Hill 2017 (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Jenny_Hill_2017_(Unsplash).jpg",
+  "author": "Jenny Hill jennyhill",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/fittrack/web/public/images/types/run.jpg",
+  "title": "Man running down side of road (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Man_running_down_side_of_road_(Unsplash).jpg",
+  "author": "Tikkho Maciel tikkho",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/fittrack/web/public/images/types/ride.jpg",
+  "title": "Man on a bicycle at night (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Man_on_a_bicycle_at_night_(Unsplash).jpg",
+  "author": "Luca Campioni white73widow",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/fittrack/web/public/images/types/intervals.jpg",
+  "title": "Starting line (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Starting_line_(Unsplash).jpg",
+  "author": "Kolleen  Gladden rockthechaos",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/fittrack/web/public/images/types/trail.jpg",
+  "title": "Running down Mount Tamalpais in gold (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Running_down_Mount_Tamalpais_in_gold_(Unsplash).jpg",
+  "author": "Todd Diemer todd_diemer",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/fittrack/web/public/images/types/sprint.jpg",
+  "title": "Tim Gouw 2016-03-14 (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Tim_Gouw_2016-03-14_(Unsplash).jpg",
+  "author": "Tim Gouw punttim",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/fittrack/web/public/images/types/hills.jpg",
+  "title": "Jakob Owens 2016-10-20 (Unsplash ielxKgql0pQ).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Jakob_Owens_2016-10-20_(Unsplash_ielxKgql0pQ).jpg",
+  "author": "Jakob Owens jakobowens1",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ }
+]

@@ -1,0 +1,8 @@
+# QuickPlate. Only what differs from the lab-app defaults
+# (gitops/charts/lab-app/templates/_defaults.tpl) is set here.
+app:
+  name: quickplate
+  host: food   # -> https://food.<your domain>
+
+# `global` (domain, image registry/tags, gateway, secret store) is injected by
+# Terraform via the root Argo CD Application. Do not set it here.

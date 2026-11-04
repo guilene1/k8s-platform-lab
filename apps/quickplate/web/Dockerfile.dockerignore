@@ -1,0 +1,7 @@
+# The build context is apps/: send only what this image needs.
+*
+!shared/web-kit/**
+!quickplate/web/**
+**/node_modules
+**/dist
+**/.env

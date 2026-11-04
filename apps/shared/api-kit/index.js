@@ -17,22 +17,11 @@ import { createDb } from './db.js';
 import { runMigrations, runSeed } from './migrate.js';
 import { createMetrics } from './metrics.js';
 import { log } from './log.js';
+import { HttpError, badRequest, notFound, conflict } from './errors.js';
 
-export { log };
+export { log, HttpError, badRequest, notFound, conflict };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-export class HttpError extends Error {
-  constructor(status, message, details) {
-    super(message);
-    this.status = status;
-    this.details = details;
-  }
-}
-
-export const badRequest = (msg, details) => new HttpError(400, msg, details);
-export const notFound = (msg = 'Not found') => new HttpError(404, msg);
-export const conflict = (msg, details) => new HttpError(409, msg, details);
 
 /**
  * @param {object} opts
@@ -40,9 +29,11 @@ export const conflict = (msg, details) => new HttpError(409, msg, details);
  * @param {(router: import('express').Router, ctx: {db: object, log: Function}) => void} opts.routes
  * @param {string} opts.migrationsDir   directory of NNN_name.sql files
  * @param {string} [opts.seedFile]      idempotent seed SQL, run after migrations
+ * @param {() => Promise<void>} [opts.onReady]  extra idempotent startup work (e.g. seed files)
+ * @param {Array<() => Promise<void>>} [opts.readinessChecks] extra checks for /readyz
  * @param {(app: import('express').Express, ctx: object) => void} [opts.extend] extra non-/api setup
  */
-export async function start({ name, routes, migrationsDir, seedFile, extend }) {
+export async function start({ name, routes, migrationsDir, seedFile, onReady, readinessChecks = [], extend }) {
   const port = Number(process.env.PORT || 8080);
   const db = createDb();
   const metrics = createMetrics(name);
@@ -64,10 +55,15 @@ export async function start({ name, routes, migrationsDir, seedFile, extend }) {
     }
     try {
       await db.query('SELECT 1');
-      res.json({ status: 'ready' });
     } catch (err) {
-      res.status(503).json({ status: 'db-unavailable', reason: err.message });
+      return res.status(503).json({ status: 'db-unavailable', reason: err.message });
     }
+    try {
+      for (const check of readinessChecks) await check();
+    } catch (err) {
+      return res.status(503).json({ status: 'dependency-unavailable', reason: err.message });
+    }
+    res.json({ status: 'ready' });
   });
 
   app.get('/metrics', metrics.handler);
@@ -85,7 +81,12 @@ export async function start({ name, routes, migrationsDir, seedFile, extend }) {
   app.use('/api', (_req, _res, next) => next(notFound('No such endpoint')));
   // eslint-disable-next-line no-unused-vars
   app.use((err, req, res, _next) => {
-    const status = err.status || (err.type === 'entity.parse.failed' ? 400 : 500);
+    let status = err.status || (err.type === 'entity.parse.failed' ? 400 : 500);
+    if (err.name === 'MulterError') {
+      // Upload limits (multer): too large -> 413, anything else -> 400.
+      status = err.code === 'LIMIT_FILE_SIZE' ? 413 : 400;
+      err.message = err.code === 'LIMIT_FILE_SIZE' ? 'File is too large' : err.message;
+    }
     if (status >= 500) log('error', 'request failed', { path: req.path, error: err.message, stack: err.stack });
     res.status(status).json({
       error: status >= 500 ? 'Internal server error' : err.message,
@@ -104,6 +105,7 @@ export async function start({ name, routes, migrationsDir, seedFile, extend }) {
       try {
         await runMigrations(db, migrationsDir, name);
         if (seedFile) await runSeed(db, seedFile);
+        if (onReady) await onReady();
         state.migrated = true;
         state.lastDbError = null;
         log('info', 'database ready', { attempt });

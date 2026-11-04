@@ -37,6 +37,9 @@ for app in $APPS; do
   echo "== ${app}: role ${user}, database ${app}"
   # psql variables (:'x' literal, :"x" identifier) keep values safely quoted.
   psql -v ON_ERROR_STOP=1 -q -v app="$app" -v user="$user" -v pass="$pass" <<'SQL'
+-- Re-runs are expected; skip "already exists/granted" notices.
+SET client_min_messages = warning;
+
 SELECT format('CREATE ROLE %I LOGIN', :'user')
  WHERE NOT EXISTS (SELECT FROM pg_roles WHERE rolname = :'user') \gexec
 

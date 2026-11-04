@@ -1,0 +1,9 @@
+apiVersion: v2
+name: staywell
+description: StayWell - hotel booking (search, rooms, reservations)
+type: application
+version: 1.0.0
+dependencies:
+  - name: lab-app
+    version: 1.0.0
+    repository: file://../../charts/lab-app

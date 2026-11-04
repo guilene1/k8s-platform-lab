@@ -1,0 +1,26 @@
+[
+ {
+  "file": "apps/northbank/web/public/images/hero.jpg",
+  "title": "New York, United States (Unsplash c6jjXv9sZS8).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:New_York,_United_States_(Unsplash_c6jjXv9sZS8).jpg",
+  "author": "Zoltan Kovacs kovacsz1",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/northbank/web/public/images/glass.jpg",
+  "title": "Curved architecture of a reflective building with multiple glass windows in Paris.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Curved_architecture_of_a_reflective_building_with_multiple_glass_windows_in_Paris.jpg",
+  "author": "Etienne Boulanger etiennezou",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ },
+ {
+  "file": "apps/northbank/web/public/images/towers.jpg",
+  "title": "Orange reflective architecture (Unsplash).jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Orange_reflective_architecture_(Unsplash).jpg",
+  "author": "Alex wong killerfvith",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+ }
+]

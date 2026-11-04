@@ -1,0 +1,9 @@
+apiVersion: v2
+name: quickplate
+description: QuickPlate - food delivery (restaurants, menus, order tracking)
+type: application
+version: 1.0.0
+dependencies:
+  - name: lab-app
+    version: 1.0.0
+    repository: file://../../charts/lab-app
