@@ -18,5 +18,11 @@ apps:
     path: gitops/apps/quickplate
   staywell:
     path: gitops/apps/staywell
+  homefinder:
+    path: gitops/apps/homefinder
+  hirehub:
+    path: gitops/apps/hirehub
+  careslot:
+    path: gitops/apps/careslot
 
 global: {}

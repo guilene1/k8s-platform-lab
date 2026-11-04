@@ -1,0 +1,9 @@
+apiVersion: v2
+name: homefinder
+description: HomeFinder - real estate listings with photo uploads (EFS)
+type: application
+version: 1.0.0
+dependencies:
+  - name: lab-app
+    version: 1.0.0
+    repository: file://../../charts/lab-app

@@ -1,0 +1,2 @@
+{{- /* Everything HomeFinder needs comes from the shared lab-app library chart. */ -}}
+{{ include "lab-app.render" . }}

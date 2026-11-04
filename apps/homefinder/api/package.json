@@ -1,0 +1,20 @@
+{
+  "name": "homefinder-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HomeFinder API",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "multer": "^2.5.0",
+    "pg": "^8.23.1",
+    "prom-client": "^15.1.3"
+  }
+}

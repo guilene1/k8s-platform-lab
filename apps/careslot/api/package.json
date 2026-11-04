@@ -1,0 +1,19 @@
+{
+  "name": "careslot-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CareSlot API",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "pg": "^8.23.1",
+    "prom-client": "^15.1.3"
+  }
+}

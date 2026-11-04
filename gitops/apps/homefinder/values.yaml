@@ -1,0 +1,17 @@
+# HomeFinder. Only what differs from the lab-app defaults
+# (gitops/charts/lab-app/templates/_defaults.tpl) is set here.
+app:
+  name: homefinder
+  host: homes   # -> https://homes.<your domain>
+
+# Uploaded files live on Amazon EFS, mounted ReadWriteMany into every
+# API replica: an upload handled by one pod is served by all of them.
+storage:
+  enabled: true
+  size: 10Gi
+
+web:
+  clientMaxBodySize: 12m
+
+# `global` (domain, image registry/tags, gateway, secret store) is injected by
+# Terraform via the root Argo CD Application. Do not set it here.
