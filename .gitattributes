@@ -1,3 +1,7 @@
+# Everything text is stored and checked out with LF, so files copied into
+# Linux images from a Windows checkout behave the same as from macOS/Linux.
+* text=auto eol=lf
+
 # Shell scripts must keep LF endings or they fail in Linux containers / WSL.
 *.sh text eol=lf
 *.yaml text eol=lf

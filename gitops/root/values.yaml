@@ -1,10 +1,16 @@
 # The apps Argo CD deploys. Each entry becomes an Application named after the
-# key, deploying the Helm chart at `path` into the namespace of the same name.
+# key, deploying the Helm chart at `path` into the namespace of the same name
+# (or `namespace`). Set `enabled: false` to remove an app (Argo CD prunes it).
 #
 # `global` is injected by Terraform through the root Application (domain, ECR
 # registry, image tags, ...). Do not set it here.
-#
-# Phase 1: the platform is up, no apps yet.
-apps: {}
+apps:
+  # Creates the 10 databases + users on RDS before the apps need them.
+  db-bootstrap:
+    path: gitops/platform/db-bootstrap
+    syncWave: "-1"
+
+  shopline:
+    path: gitops/apps/shopline
 
 global: {}

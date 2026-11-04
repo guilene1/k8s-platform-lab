@@ -30,6 +30,13 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+    # Namespaces Argo CD creates enforce the "restricted" Pod Security
+    # Standard - every lab workload runs non-root with no extra privileges.
+    managedNamespaceMetadata:
+      labels:
+        app.kubernetes.io/part-of: k8s-platform-lab
+        pod-security.kubernetes.io/enforce: restricted
+        pod-security.kubernetes.io/warn: restricted
     retry:
       limit: 10
       backoff:

@@ -54,6 +54,10 @@ kc() {
 render() { # render <name> <chart-dir> [helm args...]
   local name="$1" chart="$2"; shift 2
   echo "== helm template $name"
+  # Same as Argo CD's repo-server: build file:// dependencies (lab-app library).
+  if grep -q '^dependencies:' "$chart/Chart.yaml"; then
+    helm dependency build "$chart" >/dev/null
+  fi
   helm lint --quiet "$chart" "$@" >/dev/null
   helm template "$name" "$chart" "$@" > "$OUT/manifests/$name.yaml"
 }

@@ -4,7 +4,27 @@ global:
   domain: lab.example.com
   region: us-east-1
   imageRegistry: 111122223333.dkr.ecr.us-east-1.amazonaws.com/k8slab
-  imageTags: {}
+  imageTags:
+    shopline-api: 0123456789ab
+    shopline-web: 0123456789ab
+    northbank-api: 0123456789ab
+    northbank-web: 0123456789ab
+    quickplate-api: 0123456789ab
+    quickplate-web: 0123456789ab
+    staywell-api: 0123456789ab
+    staywell-web: 0123456789ab
+    homefinder-api: 0123456789ab
+    homefinder-web: 0123456789ab
+    hirehub-api: 0123456789ab
+    hirehub-web: 0123456789ab
+    careslot-api: 0123456789ab
+    careslot-web: 0123456789ab
+    ticketwave-api: 0123456789ab
+    ticketwave-web: 0123456789ab
+    fittrack-api: 0123456789ab
+    fittrack-web: 0123456789ab
+    drivenow-api: 0123456789ab
+    drivenow-web: 0123456789ab
   secretPrefix: k8slab
   secretStore: aws-secrets-manager
   gateway:

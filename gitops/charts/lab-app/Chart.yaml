@@ -1,0 +1,10 @@
+apiVersion: v2
+name: lab-app
+description: >-
+  Library chart shared by the 10 lab applications. Renders a frontend + API
+  pair with everything a production service needs: Deployments, Services,
+  probes, resources, HPAs, PDBs, non-root security, an HTTPRoute on the shared
+  Gateway, an ExternalSecret for DB credentials, a ServiceMonitor, and
+  (optionally) an EFS-backed ReadWriteMany volume.
+type: library
+version: 1.0.0

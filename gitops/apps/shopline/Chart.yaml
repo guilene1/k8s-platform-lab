@@ -1,0 +1,9 @@
+apiVersion: v2
+name: shopline
+description: ShopLine - e-commerce store (catalog, cart, checkout, orders)
+type: application
+version: 1.0.0
+dependencies:
+  - name: lab-app
+    version: 1.0.0
+    repository: file://../../charts/lab-app

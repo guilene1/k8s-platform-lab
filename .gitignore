@@ -36,6 +36,9 @@ coverage/
 .npm/
 *.log
 
+# Helm dependencies are built from Chart.lock (Argo CD does this too)
+gitops/apps/*/charts/
+
 # Rendered/scratch output
 .render/
 .helm-rendered/

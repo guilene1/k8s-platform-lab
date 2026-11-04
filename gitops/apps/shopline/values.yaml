@@ -1,0 +1,21 @@
+# ShopLine. Only what differs from the lab-app defaults
+# (gitops/charts/lab-app/templates/_defaults.tpl) is set here.
+#
+# Try it: change api.hpa.minReplicas to 3, commit, push, and watch Argo CD
+# roll it out.
+app:
+  name: shopline
+  host: shop   # -> https://shop.<your domain>
+
+api:
+  hpa:
+    minReplicas: 2
+    maxReplicas: 6
+
+web:
+  hpa:
+    minReplicas: 2
+    maxReplicas: 4
+
+# `global` (domain, image registry/tags, gateway, secret store) is injected by
+# Terraform via the root Argo CD Application. Do not set it here.

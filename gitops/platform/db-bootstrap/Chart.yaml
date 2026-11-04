@@ -1,0 +1,5 @@
+apiVersion: v2
+name: db-bootstrap
+description: Creates the 10 app databases and their least-privilege users on the shared RDS instance
+type: application
+version: 1.0.0

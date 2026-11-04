@@ -7,29 +7,38 @@
 ###############################################################################
 
 locals {
-  # Only images whose source directory exists are built, so the lab can grow
-  # app by app.
+  apps_dir = abspath("${path.module}/../apps")
+
+  # Only images whose Dockerfile exists are built, so the lab can grow app by
+  # app. The build context is apps/ so images can include the shared kits
+  # (apps/shared/api-kit, apps/shared/web-kit); each Dockerfile has its own
+  # Dockerfile.dockerignore that limits the context to what it needs.
   buildable_images = {
     for key, img in local.app_images : key => merge(img, {
-      context = abspath("${path.module}/../apps/${img.app}/${img.component}")
+      dir        = "${local.apps_dir}/${img.app}/${img.component}"
+      dockerfile = "${local.apps_dir}/${img.app}/${img.component}/Dockerfile"
+      kit        = "${local.apps_dir}/shared/${img.component}-kit"
     })
-    if fileexists("${path.module}/../apps/${img.app}/${img.component}/Dockerfile")
+    if fileexists("${local.apps_dir}/${img.app}/${img.component}/Dockerfile")
   }
 
-  # Hash the source, not build output: node_modules/dist are never hashed.
+  # Hash the source (the component + its shared kit), never build output:
+  # node_modules/ and dist/ are not part of the hash.
   image_source_files = {
-    for key, img in local.buildable_images : key => sort(setunion(
-      fileset(img.context, "*"),
-      fileset(img.context, "src/**"),
-      fileset(img.context, "public/**"),
-      fileset(img.context, "nginx/**"),
-      fileset(img.context, "db/**"),
-    ))
+    for key, img in local.buildable_images : key => concat(
+      [for f in sort(setunion(
+        fileset(img.dir, "*"),
+        fileset(img.dir, "src/**"),
+        fileset(img.dir, "public/**"),
+        fileset(img.dir, "db/**"),
+      )) : "${img.dir}/${f}"],
+      [for f in sort(fileset(img.kit, "**")) : "${img.kit}/${f}"],
+    )
   }
 
   image_tags = {
     for key, files in local.image_source_files : key => substr(sha1(join("", [
-      for f in files : filesha1("${local.buildable_images[key].context}/${f}")
+      for f in files : filesha1(f)
     ])), 0, 12)
   }
 }
@@ -45,11 +54,12 @@ resource "null_resource" "build_images" {
 
   provisioner "local-exec" {
     interpreter = ["bash", "-c"]
-    command     = "\"${abspath(path.module)}/scripts/build-push.sh\" \"$REPOSITORY\" \"$TAG\" \"$CONTEXT\" \"$PLATFORM\" \"$REGION\""
+    command     = "\"${abspath(path.module)}/scripts/build-push.sh\" \"$REPOSITORY\" \"$TAG\" \"$CONTEXT\" \"$DOCKERFILE\" \"$PLATFORM\" \"$REGION\""
     environment = {
       REPOSITORY = aws_ecr_repository.app[each.key].repository_url
       TAG        = local.image_tags[each.key]
-      CONTEXT    = each.value.context
+      CONTEXT    = local.apps_dir
+      DOCKERFILE = each.value.dockerfile
       PLATFORM   = local.image_platform
       REGION     = var.region
     }
