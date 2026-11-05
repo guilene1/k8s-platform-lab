@@ -1,0 +1,9 @@
+apiVersion: v2
+name: ticketwave
+description: TicketWave - event ticketing (events, seat selection, tickets)
+type: application
+version: 1.0.0
+dependencies:
+  - name: lab-app
+    version: 1.0.0
+    repository: file://../../charts/lab-app

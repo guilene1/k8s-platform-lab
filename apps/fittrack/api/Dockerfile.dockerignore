@@ -1,0 +1,6 @@
+# The build context is apps/: send only what this image needs.
+*
+!shared/api-kit/**
+!fittrack/api/**
+**/node_modules
+**/.env

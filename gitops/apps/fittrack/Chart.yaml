@@ -1,0 +1,9 @@
+apiVersion: v2
+name: fittrack
+description: FitTrack - fitness tracker (workouts, progress charts)
+type: application
+version: 1.0.0
+dependencies:
+  - name: lab-app
+    version: 1.0.0
+    repository: file://../../charts/lab-app

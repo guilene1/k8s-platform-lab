@@ -24,5 +24,11 @@ apps:
     path: gitops/apps/hirehub
   careslot:
     path: gitops/apps/careslot
+  ticketwave:
+    path: gitops/apps/ticketwave
+  fittrack:
+    path: gitops/apps/fittrack
+  drivenow:
+    path: gitops/apps/drivenow
 
 global: {}

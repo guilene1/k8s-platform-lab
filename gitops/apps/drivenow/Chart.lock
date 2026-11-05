@@ -1,0 +1,6 @@
+dependencies:
+- name: lab-app
+  repository: file://../../charts/lab-app
+  version: 1.0.0
+digest: sha256:b62011332cacbca716c452713e54b2a13ec94ebe7c9111602f4637322a0ad3d9
+generated: "2026-11-04T11:03:29.5018002-05:00"
